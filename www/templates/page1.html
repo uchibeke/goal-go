@@ -1,0 +1,22 @@
+<ion-view title="Cherry Timer">
+    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+        <form class="list">
+            <label ng-hide="appear" ng-click="pauseTimer()" class="item item-input timer" name="this is a name">
+                <timer class="timer-txt" autostart="false" countdown="timeValueSeconds.value" interval="1000" finish-callback="finished()">{{minutes}}:{{sseconds}}</timer>
+            </label>
+            <label ng-show="appear"  class="item item-input timer timer-txt">
+
+              <input class="timer timer-txt jamie" ng-blur="timerInput(e)" ng-model="timeValue.value" type="tel">
+              <!-- <span class="input-label">minutes</span> -->
+            </label>
+          <audio id="audio" src="img/Sound-of-a-doorbell.wav"></audio>
+        </form>
+
+        <div style="text-align:;">
+            <img src="img/20OlfChmTuq9DUFhEncP_tomato2.jpg" width="100%" height="auto">
+        </div>
+        <div class="spacer" style="width: 300px; height: 18px;"></div>
+        <button ng-show="startBtn" ng-click="startTimer()" class="button button-balanced button-block  icon-left ion-ios-timer-outline">Start Timer</button>
+        <button ng-hide="startBtn" ng-click="stopTimer()" class="button button-energized button-block  icon-left ion-ios-timer-outline">Stop Timer</button>
+    </ion-content>
+</ion-view>
