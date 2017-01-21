@@ -1,0 +1,31 @@
+<ion-view title="New Goal">
+	<ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+
+		<div class="spacer" style="width: 300px; height: 18px;"></div>
+		<div class="list">
+			<label class="item item-input">
+				<input type="text" placeholder="session Name" ng-model="newSessionName">
+			</label>
+			
+			
+			<div class="spacer" style="width: 300px; height: 18px;"></div>
+
+			<p ng-repeat="goal in goals">
+				<label class="item item-input">
+					<input type="text" placeholder="new goal" type="number" ng-model="goals[$index]">
+				</label>
+			</p>
+			<div class="spacer" style="width: 300px; height: 18px;"></div>
+			
+			<label class="item item-input">
+				<input type="text" placeholder="time to Spend in hrs" type="number" ng-model="newDuration">
+			</label>
+		</div>
+
+		<div>
+			<button ng-click="addSession(newSessionName, goals, newDuration)" class="button button-balanced button-block">
+				Add Session
+			</button>
+		</div>
+	</ion-content>
+</ion-view>
