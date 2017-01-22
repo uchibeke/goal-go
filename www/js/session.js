@@ -22,6 +22,9 @@ Session.prototype = {
 	getNumOfSessionTasks : function() {
 		return this.numTasks;
 	},
+	getName : function() {
+		return this.name;
+	},
 	getSessionGoals : function() {
 		return this.sessionGoals;
 	},
@@ -57,11 +60,3 @@ Session.prototype = {
 		};
 	}
 }
-
-var s = new Session("Uchi\'s", ["Read Book optimistic", "Study Ds happy", "Tell me Story"], 3);
-s.addTask("Study");
-s.populateTasks(["Study Java", "Practice DS", "Study Math"]);
-console.log(s.showTask(1));
-console.log(s.showSessionTasks());
-console.log(s.getNumOfSessionTasks());
-console.log(s.sessionOutCome());
