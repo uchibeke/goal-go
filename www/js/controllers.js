@@ -26,7 +26,6 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 			ss.session.numTasks--;
 		}
 	};
-	console.log(ss.session.numTasks);
 
 	$scope.stopTimer = function() {
 		console.log('stopping timer...');
