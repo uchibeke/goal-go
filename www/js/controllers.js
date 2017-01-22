@@ -18,7 +18,8 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 
 	$scope.startSession = function() {
 		startTask();
-		setInterval(startTask, 7000);
+		// 25 mins for task + 5 mins for rest to millisec
+		setInterval(startTask, ((25 + 5) * 60) * 1000);
 	};
 
 	$scope.startTimer = function() {
@@ -55,10 +56,10 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 
 	$scope.timeValue = {};
 	$scope.timeValueSeconds = {};
-	var tVal = 5 / 60;
+	var tVal = 1500 / 60;
 	// 1500 / 60
 	$scope.timeValue.value = tVal;
-	var durationOfTask = 5;
+	var durationOfTask = 1500;
 	$scope.timeValueSeconds.value = durationOfTask;
 	//1500:  25 mins
 
@@ -178,12 +179,9 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 	};
 
 	// 5 mins wait
-	var restTime = 2000;
+	var restTime = 5 * 60 * 1000;
 	//5 * 60 * 1000;
 
-	
-	
-	
 	function facilites() {
 		var f = [];
 		angular.forEach(facilities, function(park, key) {
@@ -195,9 +193,10 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 		return f;
 	};
 	$scope.facilities = facilites();
-	
+
 	// btn 1
-	window.ButtonWebConfig = { applicationId:'app-51164781c2a5bd9e'
+	window.ButtonWebConfig = {
+		applicationId : 'app-51164781c2a5bd9e'
 	};
 	(function(u, s, e, b, t, n) {
 		u['__bttnio'] = b;
