@@ -3,7 +3,6 @@ function Session(name, goalsArray, timeInHrs) {
 	this.sessionGoals = goalsArray;
 	this.numTasks = timeInHrs * 2;
 	this.tasks = [];
-	this.currentTask = 0;
 }
 
 Session.prototype = {

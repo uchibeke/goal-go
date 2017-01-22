@@ -20,6 +20,11 @@ angular.module('app.routes', [])
     templateUrl: 'templates/new.html',
     controller: 'page1Ctrl'
   })
+  .state('preview', {
+    url: '/preview',
+    templateUrl: 'templates/preview.html',
+    controller: 'page1Ctrl'
+  })
 
 $urlRouterProvider.otherwise('/page1')
 

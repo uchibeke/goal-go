@@ -4,29 +4,32 @@
 		<div class="spacer" style="width: 300px; height: 18px;"></div>
 		<div class="list">
 			<label class="item item-input">
-				<input type="text" placeholder="session Name" ng-model="newSessionName">
+				<input type="text" placeholder="your name" ng-model="$storage.uName">
 			</label>
-			
-			
+			<div class="spacer" style="width: 300px; height: 18px;"></div>
+			<label class="item item-input">
+				<input type="text" placeholder="session name" ng-model="newSessionName">
+			</label>
 			<div class="spacer" style="width: 300px; height: 18px;"></div>
 
-			<p ng-repeat="goal in goals">
-				<label class="item item-input">
-					<input type="text" placeholder="new goal" type="number" ng-model="goals[$index]">
-				</label>
-			</p>
-			<div class="spacer" style="width: 300px; height: 18px;"></div>
-			
 			<label class="item item-input">
 				<input type="text" placeholder="time to Spend in hrs" type="number" ng-model="newDuration">
 			</label>
+			<div class="spacer" style="width: 300px; height: 18px;"></div>
+			
+			<label class="item item-input">
+				<input type="text" placeholder="list all goals separated by comma" ng-model="$storage.session.goals">
+			</label>
+			<p class="" ng-repeat="goal in $storage.session.goals.split(',')">
+				{{goal}}
+			</p>
+
+			<div class="spacer" style="width: 300px; height: 18px;"></div>
 		</div>
 
 		<div>
 			<a ng-click="addSession(newSessionName, goals, newDuration)" class="button button-balanced button-block"
-			ng-href="#/page1">
-				Add Session
-			</a>
+			ng-href="#/page1"> Add Session </a>
 		</div>
 	</ion-content>
 </ion-view>

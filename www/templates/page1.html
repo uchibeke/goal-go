@@ -1,13 +1,21 @@
 <ion-view title="Go Goals">
 	<ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
 		<form class="list">
-			<h1>{{$storage.session.name}}</h1>
-			<label ng-hide="appear" ng-click="pauseTimer()" class="item item-input timer" name="this is a name"
-			style="font-size: 100px;">
+			<p style="">
+				Hi {{$storage.uName}}
+			</p>
+			<h1 style="text-align: center"  ng-show="$storage.session.numTasks > 0">{{$storage.session.name}}</h1>
+			<p ng-hide="appear"  class="item " name="this is a name"
+			style="font-size: 100px;padding: 50px;text-align: center" ng-show="$storage.session.numTasks > 0">
 				<timer class="timer-txt" autostart="false" countdown="timeValueSeconds.value" interval="1000" finish-callback="finished()">
 					{{minutes}}:{{sseconds}}
-				</timer> </label>
-			<p>
+				</timer>
+			</p>
+			<p ng-hide="appear"  class="item " name="this is a name"
+			style="font-size: 40px;padding: 50px;text-align: center" ng-hide="$storage.session.numTasks > 0">
+				Add and start session
+			</p>
+			<p  ng-show="$storage.session.numTasks > 0">
 				{{$storage.session.numTasks}} tasks remaining
 			</p>
 			<label ng-show="appear"  class="item item-input timer timer-txt">
@@ -17,16 +25,41 @@
 		</form>
 
 		<div class="spacer" style="width: 300px; height: 18px;"></div>
-		<div ng-show="$storage.session.numTasks">
-			<button ng-show="startBtn" ng-click="startTimer()" class="button button-balanced button-block  icon-left ion-ios-timer-outline">
+		<div ng-show="$storage.session.numTasks > 0">
+			<button ng-show="startBtn" ng-click="startSession()" class="button button-balanced button-block  icon-left ion-ios-timer-outline">
 				Start Session
 			</button>
 			<button ng-hide="startBtn" ng-click="stopTimer()" class="button button-energized button-block  icon-left ion-ios-timer-outline">
 				Pause Session
 			</button>
 		</div>
-		<div  ng-show="!$storage.session.numTasks">
+		<div  ng-hide="$storage.session.numTasks > 0">
 			<a ng-href="#/new"  class="button button-dark button-block">Start New Session</a>
+		</div>
+		<div style="position: fixed;bottom:20px;right: 20px" ng-show="$storage.session.numTasks > 0">
+			<a  ng-click="clearAll()" ng-href="#/new"  class="button button-dark button-center">Clear Event</a>
+		</div>
+
+		<div>
+			<ion-scroll zooming="true" direction="xy" class="list list-inset" style="width: auto; height: 500px">
+				<h1 style="text-align: center" >Rewards</h1>
+				<ion-list>
+					<ion-item ng-repeat="park in facilities | orderBy : 'X'" class=" item-icon-right">
+						<!-- <ion-avatar item-left>
+						<img src="img/avatar-finn.png">
+						</ion-avatar> -->
+						<h2>{{park.ASSET_NAME}}</h2>
+						<h3>{{park.ASSET_GROUP1}}</h3>
+						<p>
+							{{park.ASSET_ADDR}}
+
+						</p><i class="icon ion-beer"></i>
+						
+					</ion-item>
+				</ion-list>
+			</ion-scroll>
+			<div data-bttnio-id="btn-0abcdd9719fbb0b9"
+     data-bttnio-context='{ "user_location": { "latitude": 40.6827, "longitude": -73.9754 }, "subject_location": { "identifiers": { "deliverydotcom": "71562" } } }'></div>
 		</div>
 	</ion-content>
 </ion-view>

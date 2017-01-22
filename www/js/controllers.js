@@ -7,7 +7,7 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 	});
 	console.log($scope.$storage);
 	var ss = $scope.$storage;
-	
+
 	// Store data with local storage so that it persists across sessions
 	ss = ss ? ss : {};
 
@@ -16,16 +16,29 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 	$scope.jamie = {};
 	$scope.jamie.value = 12345;
 
+	$scope.startSession = function() {
+		startTask();
+		setInterval(startTask, 7000);
+	};
+
 	$scope.startTimer = function() {
-		for (var i = 0; i < ss.session.numTasks; i++) {
+		console.log('starting timer...');
+		//$scope.time = "25:00";
+		$scope.$broadcast('timer-start');
+		$scope.startBtn = false;
+		// $scope.$broadcast('timer-addCDSeconds', 6000);
+	};
+
+	function startTask() {
+		if (ss.session.numTasks > 0) {
 			console.log('starting timer...');
 			//$scope.time = "25:00";
 			$scope.$broadcast('timer-start');
 			$scope.startBtn = false;
-			//$scope.$broadcast('timer-addCDSeconds', 6000);
-			ss.session.numTasks--;
+			// $scope.$broadcast('timer-addCDSeconds', 6000);
 		}
-	};
+	}
+
 
 	$scope.stopTimer = function() {
 		console.log('stopping timer...');
@@ -42,11 +55,12 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 
 	$scope.timeValue = {};
 	$scope.timeValueSeconds = {};
-
-	$scope.timeValue.value = 1500 / 60;
+	var tVal = 5 / 60;
+	// 1500 / 60
+	$scope.timeValue.value = tVal;
 	var durationOfTask = 5;
 	$scope.timeValueSeconds.value = durationOfTask;
-	// $scope.timeValueSeconds.value = 1500; // 25 mins
+	//1500:  25 mins
 
 	$scope.pauseTimer = function() {
 		console.log('---pauseTImer');
@@ -59,6 +73,7 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 	$scope.$on('timer-stopped', function(event, data) {
 		console.log('Timer Stopped - data = ', data);
 		console.log('Timer Stopped - data.millis = ', data.millis);
+		console.log('Event = ', event);
 
 		$scope.timeValueSeconds.value = data.millis / 1000;
 		$scope.timeValue.value = Math.floor($scope.timeValueSeconds.value / 60);
@@ -69,7 +84,7 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 		//console.log("BLUR EVENT: ", $event);
 		console.log('--bluringthis mofo');
 		console.log(e);
-		//$scope.$broadcast('timer-reset');
+		$scope.$broadcast('timer-reset');
 
 		$scope.timeValueSeconds.value = $scope.timeValue.value * 60;
 		console.log("timeValueSeconds: ", $scope.timeValueSeconds.value);
@@ -77,8 +92,8 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 
 		$scope.$broadcast('timer-set-countdown-seconds', $scope.timeValueSeconds.value);
 
-		//$scope.$broadcast('timer-add-cd-seconds', $scope.timeValue);
-		//$scope.$broadcast('timer-start');
+		$scope.$broadcast('timer-add-cd-seconds', $scope.timeValue);
+		$scope.$broadcast('timer-start');
 		$scope.appear = false;
 
 	};
@@ -99,11 +114,7 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 
 	$scope.finished = function() {
 		console.log('timer finsihed');
-		//document.getElementById('audio').play()
-		// $ionicPopup.alert({
-		//   title: 'Don\'t eat that!',
-		//   template: 'It might taste good'
-		// });
+		new Audio('img/Sound-of-a-doorbell.wav').play();
 		$scope.showAlert();
 	};
 
@@ -123,7 +134,7 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 		});
 	};
 
-	ss.goals = ss.goals ? ss.goals : [];
+	// ss.goals = ss.goals ? ss.goals : [];
 
 	$scope.addGoal = function() {
 		ss.goals.push("");
@@ -133,7 +144,7 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 		ss.session = new Session(sessionName, arrayOfGoals, duration);
 	};
 
-	//$scope.showConfirm();
+	// $scope.showConfirm();
 
 	// Triggered on a button click, or some other target
 	$scope.showPopup = function() {
@@ -144,17 +155,60 @@ angular.module('app.controllers', ['timer', 'ngStorage']).controller('page1Ctrl'
 			template : 'Time to rest'
 		});
 
-		document.getElementById('audio').play();
-
 		$timeout(function() {
 			// Reset after task
-			$scope.startBtn = true;
-			document.getElementById('audio').play();
+			reset();
 			myPopup.close();
 		}, restTime);
 	};
 
+	function reset() {
+		$scope.$broadcast('timer-reset');
+		$scope.startBtn = true;
+		ss.session.numTasks--;
+		$scope.timeValue.value = tVal;
+		$scope.timeValueSeconds.value = durationOfTask;
+	}
+
+
+	ss.finished = ss.finished ? ss.finished : {};
+
+	$scope.clearAll = function() {
+		ss.session = {};
+	};
+
 	// 5 mins wait
-	var restTime = 1000;
+	var restTime = 2000;
 	//5 * 60 * 1000;
+
+	
+	
+	
+	function facilites() {
+		var f = [];
+		angular.forEach(facilities, function(park, key) {
+			if (park.STATUS = 'active' && park.SITE_ACRES > 30) {
+				f.push(park);
+				console.log(park);
+			}
+		});
+		return f;
+	};
+	$scope.facilities = facilites();
+	
+	// btn 1
+	window.ButtonWebConfig = { applicationId:'app-51164781c2a5bd9e'
+	};
+	(function(u, s, e, b, t, n) {
+		u['__bttnio'] = b;
+		u[b] = u[b] ||
+		function() {
+			(u[b].q = u[b].q || []).push(arguments)
+		};
+		t = s.createElement(e);
+		n = s.getElementsByTagName(e)[0];
+		t.async = 1;
+		t.src = 'https://web.btncdn.com/v1/button.js';
+		n.parentNode.insertBefore(t, n)
+	})(window, document, 'script', 'bttnio');
 });
