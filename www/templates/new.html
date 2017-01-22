@@ -20,7 +20,7 @@
 			<label class="item item-input">
 				<input type="text" placeholder="list all goals separated by comma" ng-model="$storage.session.goals">
 			</label>
-			<p class="" ng-repeat="goal in $storage.session.goals.split(',')">
+			<p class="" ng-repeat="goal in $storage.session.goals.split(',') track by $index">
 				{{goal}}
 			</p>
 
